@@ -6,7 +6,7 @@ go 1.27
 // "Versioning & PocketBase compatibility" in the README before bumping.
 
 require (
-	github.com/Ahogeyi/pocketbase-authbridge/authtoken v0.0.0
+	github.com/Ahogeyi/pocketbase-authbridge/authtoken v0.1.0
 	github.com/pocketbase/pocketbase v0.40.4
 )
 
@@ -44,7 +44,3 @@ require (
 	modernc.org/memory v1.12.0 // indirect
 	modernc.org/sqlite v1.57.0 // indirect
 )
-
-// Local development convenience. Consumers resolve the published nested
-// module (replace directives in a dependency's go.mod are ignored).
-replace github.com/Ahogeyi/pocketbase-authbridge/authtoken => ./authtoken
