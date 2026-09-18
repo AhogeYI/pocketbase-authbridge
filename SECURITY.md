@@ -11,4 +11,5 @@ Private channels (either is fine):
 
 You will get an acknowledgement within 72 hours; fix and disclosure timing is
 coordinated privately. Sensitive surfaces this project cares about:
-OTP budget bypasses, breaks of the fail-closed semantics, limiter regressions.
+secret-leakage paths, token forgery (weak-key acceptance, algorithm
+confusion), and claim-set regressions (identity-only claims leaking PII).

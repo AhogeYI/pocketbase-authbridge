@@ -1,5 +1,5 @@
 name: Feature request
-description: New providers, budget semantics, regions, algorithms…
+description: Asymmetric mode (JWKS), jti denylists, audience claims…
 labels: [enhancement]
 body:
   - type: textarea
@@ -12,4 +12,4 @@ body:
     id: how
     attributes:
       label: Suggested shape
-      description: Keep the fail-closed semantics and the abuse budgets intact.
+      description: Keep the fail-closed semantics and the identity-only claim set intact.
