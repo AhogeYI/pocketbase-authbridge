@@ -1,5 +1,7 @@
 # authbridge
 
+[![ci](https://github.com/AhogeYI/pocketbase-authbridge/actions/workflows/ci.yml/badge.svg)](https://github.com/AhogeYI/pocketbase-authbridge/actions/workflows/ci.yml)
+
 Turn [PocketBase](https://pocketbase.io) into the identity issuer for your standalone services, the way Supabase does it: PocketBase mints **short-lived HS256 "service tokens"**, and every resource server verifies them **offline** with the shared secret — zero per-request call back to the auth plane.
 
 ```
