@@ -1,13 +1,13 @@
-## 改动
+## What
 
-<!-- 一段话说清这个 PR 做什么、为什么。 -->
+<!-- One paragraph: what this PR does and why. -->
 
-## 验证
+## Verification
 
-- [ ] `go vet ./... && go test ./...` 全绿
-- [ ] fail-closed 语义未破坏（无 provider 且无 DEV 开关时路由不挂载）
-- [ ] 预算/限流语义改动已同步守卫测试
+- [ ] `go vet ./... && go test ./...` green (root AND authtoken; CI adds `-race`)
+- [ ] `authtoken` still has zero PocketBase dependencies (`grep pocketbase authtoken/go.mod` empty)
+- [ ] claim-set changes stay identity-only (iss/sub/iat/exp/jti) or bump the major version
 
-## 关联
+## Refs
 
-<!-- issue 编号或讨论链接。 -->
+<!-- Issue numbers or discussion links. -->

@@ -1,27 +1,33 @@
-# 贡献指南
+# Contributing
 
 ```bash
-cd authtoken && go vet ./... && go test ./...   # 验签模块
-cd .. && go vet ./... && go test ./...           # 扩展模块（依赖 authtoken）
-go build ./example                               # 集成示例须保持可编译
+cd authtoken && go vet ./... && go test ./...   # verifier module
+cd .. && go vet ./... && go test ./...            # extension module
+# CI additionally runs everything under -race (needs cgo locally)
+go build -o /dev/null ./example                        # integration example must compile
 ```
 
-## 红线
+## Red lines
 
-- **fail-closed**：`AUTHBRIDGE_SHARED_SECRET` 缺省/过短时扩展整体不挂载——
-  任何改动不得让无密钥的部署泄漏签发路径。
-- **superuser 永不签发**：服务 token 只代表应用用户。
-- **声明集只含身份**（iss/sub/iat/exp/jti）：不加权限、不加 PII——token 会进日志。
-- `authtoken` 保持零 PocketBase 依赖；扩展模块不得把 PB 类型泄进 authtoken 的 API。
-- 验签语义变更（新增声明/算法）必须是**可兼容旧 token**的，或升主版本并写迁移说明。
+- **Fail-closed**: with `AUTHBRIDGE_SHARED_SECRET` unset or too short the
+  extension stays unmounted — no change may leak the minting path on a
+  keyless deployment.
+- **Superusers never get service tokens**: the bridge speaks for application
+  users only.
+- **Identity-only claims** (iss/sub/iat/exp/jti): no permissions, no PII —
+  tokens end up in logs.
+- `authtoken` must keep zero PocketBase dependencies, and the extension must
+  not leak PB types into `authtoken`'s API (CI enforces the first half).
+- Claim-set/verification changes must stay backward-compatible with issued
+  tokens, or bump the major version with a migration note.
 
-## 路线图欢迎的形状
+## Welcome shapes
 
-- 非对称模式（RS256 + JWKS 端点，验签方只持公钥）；
-- `jti` 撤销名单（denylist）挂钩；
-- `aud` 受众声明（多受众部署时的重放防护）。
+- Asymmetric mode (RS256 + JWKS endpoint; verifiers hold public keys only);
+- a `jti` denylist hook;
+- an `aud` claim for multi-audience deployments.
 
-## 提交
+## Commits
 
-一个逻辑步骤一个提交，`feat:` / `fix:` / `docs:` / `chore:` / `security:`；
-签名提交（`git commit -s`，DCO）。
+One logical step per commit, `feat:` / `fix:` / `docs:` / `chore:` / `security:`;
+sign your commits (`git commit -s`, DCO).

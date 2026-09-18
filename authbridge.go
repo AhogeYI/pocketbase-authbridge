@@ -83,7 +83,7 @@ func Register(app core.App) {
 	app.OnServe().BindFunc(func(e *core.ServeEvent) error {
 		cfg, ok := loadConfig()
 		if !ok {
-			app.Logger().Warn("[authbridge] "+envSecret+
+			app.Logger().Warn("[authbridge] " + envSecret +
 				" missing or shorter than 32 chars — service tokens disabled")
 			return e.Next()
 		}
