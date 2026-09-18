@@ -1,0 +1,24 @@
+name: ci
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-go@v5
+        with:
+          go-version: "1.27"
+      - name: verifier module (must stay PocketBase-free)
+        run: |
+          cd authtoken
+          go vet ./... && go test ./...
+          if grep -q "pocketbase" go.mod; then
+            echo "::error::authtoken must not depend on PocketBase"; exit 1
+          fi
+      - run: go vet ./... && go test ./...
+      - run: go build ./example
