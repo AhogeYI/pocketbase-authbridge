@@ -72,6 +72,26 @@ Token shape: standard JWT, registered claims only — `iss` / `sub` (the PocketB
 
 Running in production: three standalone services authenticate direct client requests with these tokens, dual-track alongside a legacy gateway path.
 
+## Versioning & PocketBase compatibility
+
+PocketBase is pre-1.0 and its minors occasionally break Go extensions (the
+v0.22 → v0.23 rewrite is the canonical example). Releases of this extension
+therefore follow PocketBase:
+
+- Every release **pins and is verified against exactly one PocketBase
+  version** — the one in its `go.mod`. That pin is the compatibility statement.
+- The extension's own tags are plain semver (`vX.Y.Z`), as Go modules require:
+  - **minor** (`v0.N.0`) — a newly verified PocketBase line (the common case
+    whenever PocketBase ships a minor worth tracking);
+  - **patch** (`v0.N.M`) — this extension's own fixes, PocketBase pin unchanged;
+  - **major** — a break in this extension's own public API.
+- The current stable PocketBase line is tracked; the previous line gets patch
+  backports on demand (open an issue).
+
+| Extension | PocketBase | Notes |
+|---|---|---|
+| v0.1.x | v0.40.4 | initial cut |
+
 ## License
 
 Apache-2.0 — see [LICENSE](LICENSE). Third-party components: [THIRD_PARTY_NOTICES.md](THIRD_PARTY_NOTICES.md).

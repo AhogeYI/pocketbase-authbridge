@@ -31,3 +31,10 @@ go build -o /dev/null ./example                        # integration example mus
 
 One logical step per commit, `feat:` / `fix:` / `docs:` / `chore:` / `security:`;
 sign your commits (`git commit -s`, DCO).
+
+## PocketBase upgrades
+
+1. Bump the pin in the root `go.mod` (`authtoken` has no PocketBase dependency).
+2. `go vet ./... && go test ./...` in both modules — fix whatever broke.
+3. Bump the extension's **minor**, add a row to the compatibility table in
+   the README, and name both versions (extension + PocketBase) in the release.

@@ -2,6 +2,9 @@ module github.com/Ahogeyi/pocketbase-authbridge
 
 go 1.27
 
+// The PocketBase pin doubles as the compatibility statement — see
+// "Versioning & PocketBase compatibility" in the README before bumping.
+
 require (
 	github.com/Ahogeyi/pocketbase-authbridge/authtoken v0.0.0
 	github.com/pocketbase/pocketbase v0.40.4
