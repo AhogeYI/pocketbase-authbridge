@@ -6,7 +6,7 @@ go 1.27
 // "Versioning & PocketBase compatibility" in the README before bumping.
 
 require (
-	github.com/Ahogeyi/pocketbase-authbridge/authtoken v0.1.0
+	github.com/Ahogeyi/pocketbase-authbridge/authtoken v0.1.2
 	github.com/pocketbase/pocketbase v0.40.4
 )
 

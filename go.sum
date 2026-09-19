@@ -1,5 +1,5 @@
-github.com/Ahogeyi/pocketbase-authbridge/authtoken v0.1.0 h1:TNoiyHWFdRh9i+n4EEA0KV1T1IfHypeSO999kF+E+hI=
-github.com/Ahogeyi/pocketbase-authbridge/authtoken v0.1.0/go.mod h1:0Ony3aOKGlRcVVKve6CDvPYVy3fWkZk9eD/a6/DUDOI=
+github.com/Ahogeyi/pocketbase-authbridge/authtoken v0.1.2 h1:U6dwMuDjJ835J5eg8L0PDrJhoRnZImSaX5WD4CzAgkw=
+github.com/Ahogeyi/pocketbase-authbridge/authtoken v0.1.2/go.mod h1:0Ony3aOKGlRcVVKve6CDvPYVy3fWkZk9eD/a6/DUDOI=
 github.com/asaskevich/govalidator v0.0.0-20200108200545-475eaeb16496/go.mod h1:oGkLhpf+kjZl6xBf758TQhh5XrAeiJv/7FRz/2spLIg=
 github.com/asaskevich/govalidator v0.0.0-20230301143203-a9d515a09cc2 h1:DklsrG3dyBCFEj5IhUbnKptjxatkF07cF2ak3yi77so=
 github.com/asaskevich/govalidator v0.0.0-20230301143203-a9d515a09cc2/go.mod h1:WaHUgvxTVq04UNunO+XhnAqY/wQc+bxr74GqbsZ/Jqw=
