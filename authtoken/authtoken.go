@@ -68,9 +68,14 @@ func Sign(claims Claims, secret []byte) (string, error) {
 	return token.SignedString(secret)
 }
 
-// Parse verifies the signature (HS256 only), the expiry and the issuer, and
-// returns the claims. A token signed with any other algorithm — including
-// "none" — is rejected before the key is consulted.
+// clockLeeway tolerates issuer/verifier clock skew when they run on
+// different hosts (the single-host case never notices it). Strictly bounded
+// so the no-revocation exposure window stays a rounding error of the TTL.
+const clockLeeway = 30 * time.Second
+
+// Parse verifies the signature (HS256 only), the expiry, the issue time and
+// the issuer, and returns the claims. A token signed with any other
+// algorithm — including "none" — is rejected before the key is consulted.
 func Parse(token string, secret []byte, issuer string) (*Claims, error) {
 	if err := validateSecret(secret); err != nil {
 		return nil, err
@@ -85,6 +90,8 @@ func Parse(token string, secret []byte, issuer string) (*Claims, error) {
 		jwt.WithValidMethods([]string{"HS256"}),
 		jwt.WithIssuer(issuer),
 		jwt.WithExpirationRequired(),
+		jwt.WithIssuedAt(),
+		jwt.WithLeeway(clockLeeway),
 	)
 	if err != nil {
 		return nil, fmt.Errorf("authtoken: %w", err)

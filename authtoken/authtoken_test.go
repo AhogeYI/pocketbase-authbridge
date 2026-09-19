@@ -98,3 +98,40 @@ func TestSignRejectsWeakSecretAndEmptyIdentity(t *testing.T) {
 		t.Error("empty issuer accepted")
 	}
 }
+
+func TestParseClockLeeway(t *testing.T) {
+	secret := []byte(testSecret)
+	// Issued slightly in the future (verifier clock behind the issuer):
+	// within the leeway this must parse.
+	claims := NewClaims("iss", "user1", time.Minute)
+	claims.IssuedAt = time.Now().Add(10 * time.Second)
+	token, err := Sign(claims, secret)
+	if err != nil {
+		t.Fatalf("sign: %v", err)
+	}
+	if _, err := Parse(token, secret, "iss"); err != nil {
+		t.Errorf("future iat within leeway rejected: %v", err)
+	}
+
+	// Issued beyond the leeway: rejected.
+	claims.IssuedAt = time.Now().Add(5 * time.Minute)
+	token, _ = Sign(claims, secret)
+	if _, err := Parse(token, secret, "iss"); err == nil {
+		t.Error("iat far in the future accepted")
+	}
+
+	// Just-expired (verifier clock ahead of the issuer): within the leeway.
+	claims = NewClaims("iss", "user1", time.Minute)
+	claims.ExpiresAt = time.Now().Add(-10 * time.Second)
+	token, _ = Sign(claims, secret)
+	if _, err := Parse(token, secret, "iss"); err != nil {
+		t.Errorf("barely expired within leeway rejected: %v", err)
+	}
+
+	// Long expired: still rejected.
+	claims.ExpiresAt = time.Now().Add(-5 * time.Minute)
+	token, _ = Sign(claims, secret)
+	if _, err := Parse(token, secret, "iss"); err == nil {
+		t.Error("long expired token accepted")
+	}
+}
